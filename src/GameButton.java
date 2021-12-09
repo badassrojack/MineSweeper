@@ -12,17 +12,17 @@ import java.awt.*;
 public class GameButton extends JButton{
     private int[] loc = new int[2];//store the position of this button on the panel
     private boolean marked = false;
-    private static int clickCount = 0;
+    private GameBoard motherBoard;//composition, enable the button to get access to the board it placed
 
     /**
      * The default constructor sets the button with an empty image.
      */
-    public GameButton() {
+    public GameButton(GameBoard motherBoard) {
         super();
+        this.motherBoard = motherBoard;
         ImageIcon icon = new ImageIcon("src\\resource\\button.png");
         icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
         this.setIcon(icon);
-
     }
 
     /**
@@ -85,7 +85,9 @@ public class GameButton extends JButton{
      * @param button the button to be set
      */
     public static void disclose(GameButton button){
-        GameBoard.clickCount++;
+        if(button.motherBoard.clickCount==0){
+            button.motherBoard.initBoard();
+        }
         GameLabel[][] labels = GameBoard.getLabels();
         int rows = labels.length;
         int cols = labels[0].length;
@@ -94,14 +96,11 @@ public class GameButton extends JButton{
         switch (labels[button.getRow()][button.getCol()].getLabelType()){
 
             case BOMB -> {//open all the buttons and game over
-//                if(clickCount==0)
-//                    GameBoard.reset();
                 for(int i = 0; i < rows; i++){
                     for(int j = 0; j < cols; j++){
                         buttons[i][j].setVisible(false);
                     }
                 }
-                //TODO: release the signal that game is over
             }
 
             case EMPTY -> {
@@ -122,8 +121,7 @@ public class GameButton extends JButton{
 
             case NUMBER -> button.setVisible(false);
         }
-
-        clickCount++;
+        button.motherBoard.clickCount++;
     }
 
 //    regularMouseListener[] mls = (regularMouseListener[])(this.getListeners(regularMouseListener.class)) ;

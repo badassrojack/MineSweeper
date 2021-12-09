@@ -2,10 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-//TODO:
-//2.Won't die in the first move
-// 3.Mines remain
-// 4.setting panel
+//TODO: Won't die in the first move; Mines remain; setting panel
 
 public class GameFrame extends JFrame {
 

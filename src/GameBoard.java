@@ -25,7 +25,7 @@ public class GameBoard extends JPanel {
 
     private static GameButton[][] buttons;//the position info of all buttons
 
-    public static int clickCount = 0;//count the frequency that the board is left-clicked
+    public int clickCount = 0;//count the frequency that the board is left-clicked
 
     public int getRowsNum() {
         return rowsNum;
@@ -100,7 +100,7 @@ public class GameBoard extends JPanel {
         buttons = new GameButton[rowsNum][colsNum];
         this.setLayout(null);//tell the container not to use layout and manually configure all the components
         this.setSize(CELLWIDTH*colsNum, CELLHEIGHT*rowsNum);
-        this.initBoard();
+        this.createButton();
     }
 
     /**
@@ -121,14 +121,13 @@ public class GameBoard extends JPanel {
         buttons = new GameButton[rowsNum][colsNum];
         this.setLayout(null);//tell the container not to use layout and manually configure all the components
         this.setSize(CELLWIDTH*colsNum, CELLHEIGHT*rowsNum);
-        this.initBoard();
+        this.createButton();
     }
 
     /*
     wrap the create method of the panel
      */
-    private void initBoard(){
-        this.createButton();
+    void initBoard(){
         this.createLabels();
         this.createMines();
         this.createNums();
@@ -217,7 +216,7 @@ public class GameBoard extends JPanel {
     private void createButton(){
         for(int i = 0; i < rowsNum; i++){
             for(int j = 0; j< colsNum; j++){
-                GameButton button = new GameButton();
+                GameButton button = new GameButton(this);
                 button.setBounds(j*CELLWIDTH, i*CELLHEIGHT, CELLWIDTH, CELLHEIGHT);
                 button.setLoc(i, j);
                 button.addMouseListener(new regularMouseListener());
