@@ -86,12 +86,15 @@ public class GameButton extends JButton{
      */
     public static void disclose(GameButton button){
         if(button.motherBoard.clickCount==0){
+            button.motherBoard.setStartPos(button.getRow(), button.getCol());
             button.motherBoard.initBoard();
+            button.motherBoard.clickCount++;
+            disclose(button);
         }
-        GameLabel[][] labels = GameBoard.getLabels();
+        GameLabel[][] labels = button.motherBoard.getLabels();
         int rows = labels.length;
         int cols = labels[0].length;
-        GameButton[][] buttons = GameBoard.getButtons();
+        GameButton[][] buttons = button.motherBoard.getButtons();
 
         switch (labels[button.getRow()][button.getCol()].getLabelType()){
 
@@ -121,7 +124,6 @@ public class GameButton extends JButton{
 
             case NUMBER -> button.setVisible(false);
         }
-        button.motherBoard.clickCount++;
     }
 
 //    regularMouseListener[] mls = (regularMouseListener[])(this.getListeners(regularMouseListener.class)) ;

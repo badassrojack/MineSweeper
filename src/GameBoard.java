@@ -21,11 +21,26 @@ public class GameBoard extends JPanel {
 
     static final int CELLHEIGHT = 22; //height of each cell in the board
 
-    private static GameLabel[][] labels; //the position information of all the cells in the board
+    private GameLabel[][] labels; //the position information of all the cells in the board
 
-    private static GameButton[][] buttons;//the position info of all buttons
+    private GameButton[][] buttons;//the position info of all buttons
 
     public int clickCount = 0;//count the frequency that the board is left-clicked
+
+    private int startRow;
+
+    private int startCol;
+
+    /**
+     * Set the start position of the first click, and do not create a bomb on this position.
+     *
+     * @param startRow the row of the first click
+     * @param startCol the column of the first click
+     */
+    void setStartPos(int startRow, int startCol){
+        this.startRow = startRow;
+        this.startCol = startCol;
+    }
 
     public int getRowsNum() {
         return rowsNum;
@@ -71,7 +86,7 @@ public class GameBoard extends JPanel {
      *
      * @return a GameLabel[][] of all the labels on the panel
      */
-    public static GameLabel[][] getLabels(){
+    public GameLabel[][] getLabels(){
         return labels;
     }
 
@@ -80,7 +95,7 @@ public class GameBoard extends JPanel {
      *
      * @return a GameLabel[][] of all buttons on the panel
      */
-    public static GameButton[][] getButtons(){
+    public GameButton[][] getButtons(){
         return buttons;
     }
 
@@ -92,7 +107,6 @@ public class GameBoard extends JPanel {
      */
     public GameBoard(int rowsNum, int colsNum) {
         this.removeAll();
-        clickCount = 0;
         this.rowsNum = rowsNum;
         this.colsNum = colsNum;
         this.minesNum = (int) (rowsNum * colsNum / difficulty);
@@ -133,10 +147,6 @@ public class GameBoard extends JPanel {
         this.createNums();
     }
 
-//    public static void resetBoard(){
-//        this.initBoard();
-//    }
-
 
     /*
     Fill the board with labels, there are rows*columns of labels as the cell,
@@ -166,6 +176,8 @@ public class GameBoard extends JPanel {
         while (countBomb != 0) {
             int rRow = r.nextInt(this.rowsNum);
             int rCol = r.nextInt(this.colsNum);
+            if(rRow == this.startRow && rCol == this.startCol)
+                continue;
             if (labels[rRow][rCol].getLabelType() != LabelType.BOMB) {
                 labels[rRow][rCol].setAsBomb();
                 countBomb--;

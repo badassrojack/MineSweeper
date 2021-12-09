@@ -7,19 +7,14 @@ import java.awt.event.*;
 public class GameFrame extends JFrame {
 
     public GameBoard board;
-//    private int rows;
-//    private int cols;
-
-
 
     public GameFrame(String title){
         super(title);
         this.setDefaultCloseOperation(3);//EXIT_ON_CLOSE
 //        Container container = frame.getContentPane();
+        this.setLocationRelativeTo(null);
+        board = new GameBoard(5, 5);
 
-        board = new GameBoard(20, 15);
-//        this.rows = board.getRowsNum();
-//        this.cols = board.getColsNum();
 
         JPanel bottomBar = new JPanel(new BorderLayout());//to contain the three components: reset button, number of mines remain and time elapsed.
         JButton reset = new JButton("RESET");
@@ -49,7 +44,7 @@ public class GameFrame extends JFrame {
     private void reset(){
         //1.repaint a new game board
         this.remove(board);
-        this.board = new GameBoard(this.board.getRowsNum(), this.board.getColsNum());
+        this.board = new GameBoard(this.board.getRowsNum(), this.board.getColsNum(), this.board.getMinesNum());
         this.add(board, BorderLayout.CENTER);
         //2.reset the bomb count
 
