@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-//TODO: Mines remain; setting panel
+//TODO: Mines remain, game over
 
 /**
  * The toppest container of the game window, a JFrame, which contains the game board
