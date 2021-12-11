@@ -169,6 +169,5 @@ class SettingListener implements ActionListener {
             JLabel label = new JLabel("Invalid Input!");
             frame.add(label);
         }
-
     }
 }

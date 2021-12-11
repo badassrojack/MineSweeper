@@ -8,9 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameLabel extends JLabel {
-    //private int[] pos= new int[]{2};//store the position of the label
     private LabelType labelType = LabelType.EMPTY;//set the default label type as EMPTY
-
 
     /**
      * The default constructor, call the super constructor of JLabel, and set the
@@ -22,11 +20,6 @@ public class GameLabel extends JLabel {
         icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
         this.setIcon(icon);
     }
-
-//    public void setPos(int row, int col){
-//        pos[0] = row;
-//        pos[1] = col;
-//    }
 
     /**
      * Getter of the label type.
@@ -64,6 +57,5 @@ public class GameLabel extends JLabel {
         icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
         this.setIcon(icon);
     }
-
 
 }

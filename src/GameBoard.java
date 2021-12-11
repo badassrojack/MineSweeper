@@ -112,15 +112,20 @@ public class GameBoard extends JPanel {
      *
      * @return true if the number of buttons to be opened is 0
      */
-    public boolean isWin(){
+    public boolean isWin() {
         return buttonsToBeOpened == 0;
     }
 
     //Open all the buttons
-    void openAll(){
+    void openAll() {
         for (int i = 0; i < rowsNum; i++) {
             for (int j = 0; j < colsNum; j++) {
-                buttons[i][j].setVisible(false);
+                if (buttons[i][j].isMarked()) {
+                    buttons[i][j].setButtonImage("src\\resource\\wrongMark.png");
+                } else {
+                    buttons[i][j].setVisible(false);
+                }
+
             }
         }
     }
@@ -160,7 +165,7 @@ public class GameBoard extends JPanel {
         this.minesRemain = minesNum;
         this.labels = new GameLabel[rowsNum][colsNum];
         this.buttons = new GameButton[rowsNum][colsNum];
-        this.buttonsToBeOpened = rowsNum*colsNum - minesNum;
+        this.buttonsToBeOpened = rowsNum * colsNum - minesNum;
         this.setLayout(null);//tell the container not to use layout and manually configure all the components
         this.setSize(CELLWIDTH * colsNum, CELLHEIGHT * rowsNum);
         this.createButton();

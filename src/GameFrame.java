@@ -4,9 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The toppest container of the game window, a JFrame, which contains the game board
@@ -23,10 +20,6 @@ public class GameFrame extends JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-
-        //pop up the setting dialog and get the input info
-//        SettingDialog dialog = new SettingDialog();
-//        dialog.setAlwaysOnTop(true);
 
         //initialize the panel
         board = new GameBoard(row, col, mine);
@@ -47,7 +40,7 @@ public class GameFrame extends JFrame {
         });
         reset.setBackground(Color.lightGray);
         bottomBar.setBackground(Color.lightGray);
-        status.setText("MINES REMAIN: "+board.getMinesNum());
+        status.setText("MINES REMAIN: " + board.getMinesNum());
         bottomBar.add(reset, BorderLayout.EAST);
         bottomBar.add(status, BorderLayout.WEST);
 
@@ -55,8 +48,6 @@ public class GameFrame extends JFrame {
         Create a timer to periodically scan the status of the board and change
         the display of bottom label: current mines remain, win or lose.
          */
-//        ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
-//        ses.scheduleAtFixedRate(renewBottomLabel(), 0, 200, TimeUnit.MICROSECONDS);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -74,14 +65,14 @@ public class GameFrame extends JFrame {
         setVisible(true);
     }
 
-    private void renewBottomLabel(){
-        if(board.isLost){
+    private void renewBottomLabel() {
+        if (board.isLost) {
             status.setText("BOOM! EXPLODED!");
-        }else if(board.isWin()){
+        } else if (board.isWin()) {
             board.openAll();
             status.setText("MISSION ACCOMPLISHED!");
-        }else{
-            status.setText("MINES REMAIN: "+board.minesRemain);
+        } else {
+            status.setText("MINES REMAIN: " + board.minesRemain);
         }
     }
 

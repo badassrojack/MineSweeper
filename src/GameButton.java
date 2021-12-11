@@ -20,9 +20,7 @@ public class GameButton extends JButton {
     public GameButton(GameBoard motherBoard) {
         super();
         this.motherBoard = motherBoard;
-        ImageIcon icon = new ImageIcon("src\\resource\\button.png");
-        icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
-        this.setIcon(icon);
+        this.setButtonImage("src\\resource\\button.png");
     }
 
     /**
@@ -91,6 +89,7 @@ public class GameButton extends JButton {
             button.motherBoard.clickCount++;
             disclose(button);
         }
+
         button.motherBoard.buttonsToBeOpened--;
         GameLabel[][] labels = button.motherBoard.getLabels();
         int rows = labels.length;
@@ -98,12 +97,10 @@ public class GameButton extends JButton {
         GameButton[][] buttons = button.motherBoard.getButtons();
 
         switch (labels[button.getRow()][button.getCol()].getLabelType()) {
-
             case BOMB -> {//open all the buttons and game over
                 button.motherBoard.isLost = true;
                 button.motherBoard.openAll();
             }
-
             case EMPTY -> {
                 button.setVisible(false);
                 //if the label underneath is empty, iterate the labels around
@@ -119,7 +116,6 @@ public class GameButton extends JButton {
                     }
                 }
             }
-
             case NUMBER -> button.setVisible(false);
         }
     }
@@ -137,10 +133,7 @@ public class GameButton extends JButton {
     public static void markGB(GameButton button) {
         button.motherBoard.minesRemain--;
         button.setAsMarked();
-        ImageIcon icon = new ImageIcon("src\\resource\\mark.png");
-        icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
-        button.setIcon(icon);
-
+        button.setButtonImage("src\\resource\\mark.png");
         button.addMouseListener(new markedMouseListener());
         button.removeMouseListener(button.getMouseListeners()[1]);//Must remove the last listener or the event of that listener will still be enabled.
     }
@@ -153,12 +146,15 @@ public class GameButton extends JButton {
     public static void unmark(GameButton button) {
         button.motherBoard.minesRemain++;
         button.setAsUnmarked();
-        ImageIcon icon = new ImageIcon("src\\resource\\button.png");
-        icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
-        button.setIcon(icon);
-
+        button.setButtonImage("src\\resource\\button.png");
         button.addMouseListener(new regularMouseListener());
         button.removeMouseListener(button.getMouseListeners()[1]);
+    }
+
+    void setButtonImage(String s) {
+        ImageIcon icon = new ImageIcon(s);
+        icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
+        this.setIcon(icon);
     }
 
 
