@@ -17,7 +17,7 @@ public class GameFrame extends JFrame {
 
     public GameFrame(int row, int col, int mine) {
         this.setTitle("Mine Sweeper");
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
 
