@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class GameButton extends JButton{
+public class GameButton extends JButton {
     private int[] loc = new int[2];//store the position of this button on the panel
     private boolean marked = false;
     private GameBoard motherBoard;//composition, enable the button to get access to the board it placed
@@ -31,7 +31,7 @@ public class GameButton extends JButton{
      * @param row row of this button
      * @param col column of this button
      */
-    public void setLoc(int row, int col){
+    public void setLoc(int row, int col) {
         loc[0] = row;
         loc[1] = col;
     }
@@ -41,7 +41,7 @@ public class GameButton extends JButton{
      *
      * @return row of this button on the panel
      */
-    public int getRow(){
+    public int getRow() {
         return loc[0];
     }
 
@@ -50,7 +50,7 @@ public class GameButton extends JButton{
      *
      * @return column of this button on the panel
      */
-    public int getCol(){
+    public int getCol() {
         return loc[1];
     }
 
@@ -73,7 +73,7 @@ public class GameButton extends JButton{
     /**
      * Set the button as unmarked
      */
-    public void setAsUnmarked(){
+    public void setAsUnmarked() {
         this.marked = false;
     }
 
@@ -84,37 +84,35 @@ public class GameButton extends JButton{
      *
      * @param button the button to be set
      */
-    public static void disclose(GameButton button){
-        if(button.motherBoard.clickCount==0){
+    public static void disclose(GameButton button) {
+        if (button.motherBoard.clickCount == 0) {
             button.motherBoard.setStartPos(button.getRow(), button.getCol());
             button.motherBoard.initBoard();
             button.motherBoard.clickCount++;
             disclose(button);
         }
+        button.motherBoard.buttonsToBeOpened--;
         GameLabel[][] labels = button.motherBoard.getLabels();
         int rows = labels.length;
         int cols = labels[0].length;
         GameButton[][] buttons = button.motherBoard.getButtons();
 
-        switch (labels[button.getRow()][button.getCol()].getLabelType()){
+        switch (labels[button.getRow()][button.getCol()].getLabelType()) {
 
             case BOMB -> {//open all the buttons and game over
-                for(int i = 0; i < rows; i++){
-                    for(int j = 0; j < cols; j++){
-                        buttons[i][j].setVisible(false);
-                    }
-                }
+                button.motherBoard.isLost = true;
+                button.motherBoard.openAll();
             }
 
             case EMPTY -> {
                 button.setVisible(false);
                 //if the label underneath is empty, iterate the labels around
-                for(int currI = button.getRow()-1; currI<= button.getRow()+1; currI++){
-                    for(int currJ = button.getCol()-1; currJ<= button.getCol()+1; currJ++){
-                        if(currI>=0 && currI<rows && currJ>=0 && currJ<cols){
+                for (int currI = button.getRow() - 1; currI <= button.getRow() + 1; currI++) {
+                    for (int currJ = button.getCol() - 1; currJ <= button.getCol() + 1; currJ++) {
+                        if (currI >= 0 && currI < rows && currJ >= 0 && currJ < cols) {
                             GameButton gb = buttons[currI][currJ];
                             GameLabel labelUnder = labels[currI][currJ];
-                            if(gb.isMarked() || !gb.isVisible() || labelUnder.getLabelType()==LabelType.BOMB)
+                            if (gb.isMarked() || !gb.isVisible() || labelUnder.getLabelType() == LabelType.BOMB)
                                 continue;
                             disclose(gb);
                         }
@@ -136,7 +134,8 @@ public class GameButton extends JButton{
      *
      * @param button the button to be set
      */
-    public static void markGB(GameButton button){
+    public static void markGB(GameButton button) {
+        button.motherBoard.minesRemain--;
         button.setAsMarked();
         ImageIcon icon = new ImageIcon("src\\resource\\mark.png");
         icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
@@ -151,7 +150,8 @@ public class GameButton extends JButton{
      *
      * @param button the button to be set
      */
-    public static void unmark(GameButton button){
+    public static void unmark(GameButton button) {
+        button.motherBoard.minesRemain++;
         button.setAsUnmarked();
         ImageIcon icon = new ImageIcon("src\\resource\\button.png");
         icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
@@ -160,7 +160,6 @@ public class GameButton extends JButton{
         button.addMouseListener(new regularMouseListener());
         button.removeMouseListener(button.getMouseListeners()[1]);
     }
-
 
 
 }

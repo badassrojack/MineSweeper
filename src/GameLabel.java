@@ -49,7 +49,7 @@ public class GameLabel extends JLabel {
     /**
      * Set the calling label as a bomb.
      */
-    public void setAsBomb(){
+    public void setAsBomb() {
         this.setLabelType(LabelType.BOMB);
         ImageIcon icon = new ImageIcon("src\\resource\\bomb.png");
         icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
@@ -59,7 +59,7 @@ public class GameLabel extends JLabel {
     /**
      * Set the calling label as a number
      */
-    public void setAsNum(ImageIcon icon){
+    public void setAsNum(ImageIcon icon) {
         setLabelType(LabelType.NUMBER);
         icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
         this.setIcon(icon);
