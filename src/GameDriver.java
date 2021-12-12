@@ -130,6 +130,10 @@ class SettingDialog extends JDialog {
 
 }
 
+/*
+This is the action listener of the start button on the setting panel, it takes in the
+text of three text field and create a game frame with these number
+ */
 class SettingListener implements ActionListener {
     private TextField row, col, mine;
     JDialog owner;

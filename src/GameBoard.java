@@ -45,14 +45,29 @@ public class GameBoard extends JPanel {
         this.startCol = startCol;
     }
 
+    /**
+     * Get the number of row of the board.
+     *
+     * @return number of row
+     */
     public int getRowsNum() {
         return rowsNum;
     }
 
+    /**
+     * Get the number of column of the board.
+     *
+     * @return number of column
+     */
     public int getColsNum() {
         return colsNum;
     }
 
+    /**
+     * Get the number of mine of the board.
+     *
+     * @return number of mine
+     */
     public int getMinesNum() {
         return minesNum;
     }
@@ -113,8 +128,6 @@ public class GameBoard extends JPanel {
                 if (buttons[i][j].isMarked()) {
                     if(labels[i][j].getLabelType()!=LabelType.BOMB)
                         buttons[i][j].setButtonImage("src\\resource\\wrongMark.png");
-                    else
-                        break;
                 } else {
                     buttons[i][j].setVisible(false);
                 }
@@ -146,15 +159,12 @@ public class GameBoard extends JPanel {
         this.createButton();
     }
 
-    /*
-    wrap the create method of the panel
-     */
+    //wrap the create method of the panel
     void initBoard() {
         this.createLabels();
         this.createMines();
         this.createNums();
     }
-
 
     /*
     Fill the board with labels, there are rows*columns of labels as the cell,

@@ -1,3 +1,9 @@
+/**
+ * The toppest container of the game window, a JFrame, which contains the game board
+ * and a bottom bar with reset button and info about the mines remain. Before game start
+ * there will pop up a dialog to choose the difficulty or customize the board.
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -5,16 +11,19 @@ import java.awt.event.MouseEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * The toppest container of the game window, a JFrame, which contains the game board
- * and a bottom bar with reset button and info about the mines remain. Before game start
- * there will pop up a dialog to choose the difficulty or customize the board.
- */
+
 public class GameFrame extends JFrame {
 
     private GameBoard board;
     private JLabel status = new JLabel();
 
+    /**
+     * Constructor of the class, takes in the parameters of the size of the board
+     *
+     * @param row number of row of the board
+     * @param col number of column of the board
+     * @param mine number of mine of the board
+     */
     public GameFrame(int row, int col, int mine) {
         this.setTitle("Mine Sweeper");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -53,7 +62,6 @@ public class GameFrame extends JFrame {
             }
         }, 0, 50);
 
-
         //add the components to the frame
         this.setLayout(new BorderLayout());
         this.add(board, BorderLayout.CENTER);
@@ -62,6 +70,7 @@ public class GameFrame extends JFrame {
         setVisible(true);
     }
 
+    //Change the title of bottom status label
     private void renewBottomLabel() {
         if (board.isLost) {
             status.setText("BOOM! EXPLODED!");
@@ -73,6 +82,7 @@ public class GameFrame extends JFrame {
         }
     }
 
+    //reset the board to restart a game
     private void reset() {
         //paint a new game board
         this.remove(board);
@@ -81,6 +91,11 @@ public class GameFrame extends JFrame {
         repaint();
     }
 
+    /**
+     * Set the location of a GUI component in the center of screen
+     *
+     * @param c the component to be set
+     */
     public static void setCenter(Component c){
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((dimension.getWidth() - c.getWidth()) / 2);

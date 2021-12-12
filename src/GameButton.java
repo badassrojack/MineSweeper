@@ -120,9 +120,6 @@ public class GameButton extends JButton {
         }
     }
 
-//    regularMouseListener[] mls = (regularMouseListener[])(this.getListeners(regularMouseListener.class)) ;
-
-
     /**
      * Once a button is right-clicked, it is set as marked and cannot response to
      * click, only thing can do on this button is right click it again and reset it
@@ -151,6 +148,7 @@ public class GameButton extends JButton {
         button.removeMouseListener(button.getMouseListeners()[1]);
     }
 
+    //Set the image of the button, takes in a string that refers to the address of image
     void setButtonImage(String s) {
         ImageIcon icon = new ImageIcon(s);
         icon.setImage(icon.getImage().getScaledInstance(GameBoard.CELLWIDTH, GameBoard.CELLHEIGHT, Image.SCALE_DEFAULT));
