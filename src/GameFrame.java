@@ -24,10 +24,7 @@ public class GameFrame extends JFrame {
         //initialize the panel
         board = new GameBoard(row, col, mine);
         this.setSize(board.getBoardWidth() + 14, board.getBoardHeight() + 64);
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
-        int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
-        this.setLocation(x, y);
+        setCenter(this);
 
         //initialize the bottom bar with a reset button and text of mines remain
         JPanel bottomBar = new JPanel(new BorderLayout());//to contain the three components: reset button, number of mines remain and time elapsed.
@@ -82,6 +79,13 @@ public class GameFrame extends JFrame {
         this.board = new GameBoard(this.board.getRowsNum(), this.board.getColsNum(), this.board.getMinesNum());
         this.add(board, BorderLayout.CENTER);
         repaint();
+    }
+
+    public static void setCenter(Component c){
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - c.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - c.getHeight()) / 2);
+        c.setLocation(x, y);
     }
 }
 

@@ -16,8 +16,6 @@ public class GameBoard extends JPanel {
 
     int minesRemain;//record the #mine remains to be swept, initial value is minesNum, --or++ when the button is marked or unmarked
 
-//    private int difficulty = 10; //coefficient of difficulty
-
     static final int CELLWIDTH = 22; //width of each cell in the board
 
     static final int CELLHEIGHT = 22; //height of each cell in the board
@@ -77,14 +75,6 @@ public class GameBoard extends JPanel {
         return this.colsNum * CELLWIDTH;
     }
 
-//    /**
-//     * Set the coefficient of difficulty
-//     *
-//     * @param difficulty coefficient of difficulty, default value is 10
-//     */
-//    public void setDifficulty(int difficulty) {
-//        this.difficulty = difficulty;
-//    }
 
     /**
      * Get the 2-d array of GameLabel of the board.
@@ -116,37 +106,22 @@ public class GameBoard extends JPanel {
         return buttonsToBeOpened == 0;
     }
 
-    //Open all the buttons
+    //Open all the buttons. If the button is marked, check if it is correctly show the bomb underneath, if it is true then keep the mark, otherwise set it as a wrong mark.
     void openAll() {
         for (int i = 0; i < rowsNum; i++) {
             for (int j = 0; j < colsNum; j++) {
                 if (buttons[i][j].isMarked()) {
-                    buttons[i][j].setButtonImage("src\\resource\\wrongMark.png");
+                    if(labels[i][j].getLabelType()!=LabelType.BOMB)
+                        buttons[i][j].setButtonImage("src\\resource\\wrongMark.png");
+                    else
+                        break;
                 } else {
                     buttons[i][j].setVisible(false);
                 }
-
             }
         }
     }
 
-//    /**
-//     * This is the constructor made for default difficulty we offered for players.
-//     *
-//     * @param rowsNum number of row
-//     * @param colsNum number of column
-//     */
-//    public GameBoard(int rowsNum, int colsNum) {
-//        this.removeAll();
-//        this.rowsNum = rowsNum;
-//        this.colsNum = colsNum;
-//        this.minesNum = (int) (rowsNum * colsNum / difficulty);
-//        labels = new GameLabel[rowsNum][colsNum];
-//        buttons = new GameButton[rowsNum][colsNum];
-//        this.setLayout(null);//tell the container not to use layout and manually configure all the components
-//        this.setSize(CELLWIDTH * colsNum, CELLHEIGHT * rowsNum);
-//        this.createButton();
-//    }
 
     /**
      * This constructor is made for customizing the game, including resizing the

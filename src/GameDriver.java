@@ -31,10 +31,7 @@ class SettingDialog extends JDialog {
     public SettingDialog() {
         setTitle("Settings");
         setSize(400, 250);
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
-        int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
-        setLocation(x, y);
+        GameFrame.setCenter(this);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setLayout(null);
@@ -160,10 +157,7 @@ class SettingListener implements ActionListener {
         } catch (IllegalArgumentException ex) {
             JFrame frame = new JFrame();
             frame.setBounds(500, 500, 100, 50);
-            Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-            int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
-            int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
-            frame.setLocation(x, y);
+            GameFrame.setCenter(frame);
             frame.setVisible(true);
             frame.setAlwaysOnTop(true);
             JLabel label = new JLabel("Invalid Input!");
